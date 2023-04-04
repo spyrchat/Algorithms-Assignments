@@ -1,0 +1,78 @@
+# This function finds the candidate with the most votes
+# It uses the Boyer-Moore Majority Vote Algorithm
+# The time complexity of this function is O(n)
+
+function findCandidate(arr):
+    if length of arr is not 0
+        candidate = -1
+        votes = 0
+        for i in range(length of arr)
+            if votes is 0
+                candidate = arr[i]
+                votes = 1
+            end if
+            else
+                if arr[i] is candidate
+                    votes = votes + 1
+                end if
+                else
+                    votes = votes - 1
+                end else
+            end else
+        end for
+        return candidate
+    end if
+    else
+        print "The input array cannot be of zero length"
+        return None
+    end else
+end function
+
+# This function checks if the candidate with the most votes has a majority in the array
+# It has a time complexity of O(n)
+
+function CheckForMajority(candidate, array)
+    ctr = 0
+    for j in range(length of array)
+        if array[j] is candidate:
+            ctr = ctr + 1
+        end if
+    end for
+    if ctr >= length of array / 2
+        return True
+    end if
+    else
+        return False
+    end else
+end function
+
+# This function checks if there is a tie between two candidates with the most votes
+# It first finds the candidate with the most votes using the findCandidate function
+# Then it checks if that candidate has a majority in the array using CheckForMajority
+# It creates a new array without the first candidate and finds the candidate with the most votes in that array
+# It then checks if the second candidate has a majority in the original array using CheckForMajority
+# The time complexity of this function is O(n) in the worst case, when there are two candidates with equal votes
+
+function CheckForTie(arr)
+    cnd = findCandidate(arr)
+    if CheckForMajority(cnd, arr) is True
+        arr2 = []
+        for i in range(length of arr)
+            if arr[i] is not cnd
+                arr2.append(arr[i])
+            end if
+        end for    
+        
+        cnd2 = findCandidate(arr2)
+        
+        if CheckForMajority(cnd2, arr) is True
+            return cnd, cnd2
+        end if    
+        else
+            return cnd
+        end else
+    end if
+    else
+        return None
+    end else
+end function
